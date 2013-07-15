@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.suntf.pkm"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="14" />
+	
+    <permission
+        android:name="com.suntf.pkm.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.suntf.pkm.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name="com.suntf.pkm.PKMApplication" >
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="com.suntf.pkm.ItemListActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.ItemDetailActivity"
+            android:label="@string/title_item_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ItemListActivity" />
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.DairyListActivity"
+            android:label="@string/title_item_detail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DairyListActivity" />
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.WriteDActivity"
+            android:label="@string/title_activity_write_d" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.CategoryActivity"
+            android:label="@string/title_activity_category" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.ReadActivity"
+            android:label="@string/title_activity_read" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.TagActivity"
+            android:label="@string/title_activity_tag" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.ShareDairyActivity"
+            android:label="@string/title_activity_share" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.ReadShareActivity"
+            android:label="@string/title_activity_read_share" >
+        </activity>
+        <activity
+            android:name="com.suntf.pkm.CalendarActivity"
+            android:label="@string/title_activity_calendar" >
+        </activity>
+	
+        <activity
+            android:name="com.suntf.pkm.NotificationActivity"
+            android:label="@string/title_activity_notification" >
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.suntf.pkm" />
+            </intent-filter>
+        </activity>
+        <!-- Required  SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <!-- Required SDK 核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+ <!-- Required  显示通知栏 -->
+                <category android:name="com.suntf.pkm" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能 -->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+
+        <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <receiver
+            android:name="com.suntf.pkm.util.MyReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+ <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+ <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+ <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+ <!-- Required  用户打开自定义通知栏的intent -->
+                <category android:name="com.suntf.pkm" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="d1a5a94bbdd29d00422f53c4" /> <!-- </>值来自开发者平台取得的AppKey -->
+        
+    </application>
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:label="Test My App"
+        android:targetPackage="com.suntf.pkm" />
+
+</manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="50000000" />
+	
+	
+	<!-- base config -->
+	<package name="base" extends="struts-default">
+		<global-results>
+			<result name="success">/page/comm/success.jsp</result>
+			<result name="error">/page/comm/error.jsp</result>
+		</global-results>
+	</package>
+
+	<!-- common config -->
+	<package name="browse" namespace="/browse" extends="base">
+		<action name="*_*" class="{1}Action" method="{2}">
+			<result name="success">/page/browse/{1}_{2}.jsp</result>
+		</action>
+	</package>
+	<package name="update" namespace="/update" extends="base">
+		<action name="*_*_init" class="{1}Action" method="{2}Init">
+			<result name="success">/page/update/{1}_{2}.jsp</result>
+		</action>
+		<action name="*_*" class="{1}Action" method="{2}"/>
+	</package>
+
+</struts>

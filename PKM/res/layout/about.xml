@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".AboutActivity" >
+
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="124dp"
+	        android:layout_height="124dp"
+	        android:layout_centerHorizontal="true"
+	        android:src="@drawable/cust" />
+	</RelativeLayout>
+	       <Space
+            android:layout_width="30dp"
+	        android:layout_height="30dp"
+            android:layout_alignParentTop="true" />
+	 <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="基于Android的个人知识管理平台的研究与设计"
+            android:textColor="@color/black" />
+
+   </RelativeLayout>
+   <Space
+            android:layout_width="20dp"
+	        android:layout_height="20dp"
+            android:layout_alignParentTop="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="长春理工大学 软件学院"/>
+   </RelativeLayout>
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="0913135班" />
+   </RelativeLayout>
+   <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="孙腾飞" />
+   </RelativeLayout>
+</LinearLayout>

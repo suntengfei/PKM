@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="meetingmgr">
+
+	<defaultCache maxElementsInMemory="1000" eternal="false"
+		timeToIdleSeconds="3600" timeToLiveSeconds="3600" overflowToDisk="false">
+	</defaultCache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.Equipment"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.EquipmentBook"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.MeetingJoin"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.Role"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.Room"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.RoomBook"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="cn.edu.cust.meetingmgr.model.User"
+		maxElementsInMemory="2000" eternal="false" timeToIdleSeconds="3600"
+		timeToLiveSeconds="3600" overflowToDisk="false">
+	</cache>
+
+	<cache name="org.hibernate.cache.StandardQueryCache"
+		maxElementsInMemory="5000" eternal="false" timeToLiveSeconds="3600"
+		overflowToDisk="false" />
+
+	<cache name="org.hibernate.cache.UpdateTimestampsCache"
+		maxElementsInMemory="5000" eternal="true" overflowToDisk="true" />
+</ehcache>

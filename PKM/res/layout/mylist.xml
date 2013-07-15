@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="4dip"
+    android:paddingLeft="12dip"
+    android:paddingRight="12dip" >
+
+<TextView   
+    android:text="Text01"   
+    android:layout_height="wrap_content"   
+    android:textSize="20sp"   
+    android:layout_width="fill_parent"   
+    android:id="@+id/Text01"  
+    android:textColor="@color/black" 
+    />
+<LinearLayout
+    android:id="@+id/linearLayout11"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white" 
+    android:layout_below="@+id/Text01">
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日期："
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/Text02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black" 
+        android:text="TextView02" />
+
+</LinearLayout>
+ <LinearLayout
+    android:id="@+id/linearLayout22"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white" 
+     android:layout_below="@+id/linearLayout11">
+  <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black" 
+        android:text="内容摘要：" />
+
+    <TextView
+        android:id="@+id/Text03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black" 
+        android:text="TextView03" /> 
+ </LinearLayout>   
+</RelativeLayout>  

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/beans 
+     	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop 
+     	http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+     	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 配置容器资源扫描的包 -->
+	<context:component-scan base-package="cn.edu.cust" />
+	
+	<!-- 国际化消息资源文件 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<!-- web环境中，一定要定位到classpath否则默认到当前web应用下找 -->
+				<value>classpath:messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+	
+	<!-- placeholder占位符 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- dataSource config -->
+	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="alias" value="proxoolDataSource" />
+		<property name="driver" value="${connection.driver_class}" />
+		<property name="driverUrl" value="${connection.url}" />
+		<property name="user" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="maximumConnectionCount" value="${proxool.maximum.connection.count}" />
+		<property name="minimumConnectionCount" value="${proxool.minimum.connection.count}" />
+		<property name="statistics" value="${proxool.statistics}" />
+		<property name="simultaneousBuildThrottle" value="${proxool.simultaneous.build.throttle}" />
+	</bean>
+	
+	<!-- sessionFactory config -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>cn.edu.cust.meetingmgr</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
+				<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">${hibernate.bytecode.use_reflection_optimizer}</prop>
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+				<prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
+				<prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<aop:aspectj-autoproxy expose-proxy="true" />
+	
+	<!-- 开启注解事务 只对当前配置文件有效 -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<!-- 声明式事务管理，事务需要数据源，从sessionFactory中拿到,这是一个aop的应用 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- 配置事务要管理的方法 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="create*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="merge*" propagation="REQUIRED"/>
+			<tx:method name="del*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			<tx:method name="put*" propagation="REQUIRED"/>
+			<tx:method name="user*" propagation="REQUIRED"/>
+			<tx:method name="pass*" propagation="REQUIRED"/>
+			<tx:method name="notPass*" propagation="REQUIRED"/>
+			<!-- hibernate4 必须配置为开启事务 否则getCurrentSession()获取不到 -->
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置aop设置切面和织入点逻辑 -->
+	<aop:config expose-proxy="true">
+		<!-- 只对业务逻辑层实施事务 -->
+		<aop:pointcut id="txPointcut" expression="execution(* cn.edu.cust..service..*.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+	
+</beans>

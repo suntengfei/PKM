@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>spring_security_test_1</display-name>
+	
+	<!-- log4j config -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>600000</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>springsecurity.webapp.root</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+
+	<!-- servlet encoding config -->
+	<filter>
+		<filter-name>springCharacterEncoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springCharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- spring config -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+            classpath:applicationContext.xml
+        </param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- proxool 监控数据库连接池的连接情况 -->
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>org.logicalcobwebs.proxool.admin.servlet.AdminServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin/proxool.servlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- struts2 config -->
+	 <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- security config -->
+    <security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All Role's Protected Area</web-resource-name>
+			<!-- Define the context-relative URL(s) to be protected -->
+			<url-pattern>/page/comm/*</url-pattern>
+			<url-pattern>/index.jsp</url-pattern>
+			<!-- If you list http methods, only those methods are protected -->
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- Anyone with one of the listed roles may access this area -->
+			<role-name>a</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Admin's Protected Area</web-resource-name>
+			<url-pattern>/page/browse/*</url-pattern>
+			<url-pattern>/browse/*</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+			<http-method>PUT</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>a</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>Example Form-Based Authentication Area</realm-name>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-role>
+		<!-- admin -->
+		<role-name>a</role-name>
+	</security-role>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<session-config>
+		<session-timeout>
+            30
+		</session-timeout>
+	</session-config>
+    
+    <listener>
+    	<listener-class>cn.edu.cust.util.init.Init</listener-class>
+    </listener>
+    
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

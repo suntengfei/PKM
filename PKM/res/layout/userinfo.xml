@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >	
+         <Space
+            android:id="@+id/userinfospace1"
+            android:layout_width="30dp"
+	        android:layout_height="60dp"
+            />
+
+         <ImageView
+             android:id="@+id/imageView1"
+             android:layout_width="124dp"
+             android:layout_height="124dp"
+             android:layout_centerHorizontal="true"
+             android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:id="@+id/linearlayoutuserinfo1"
+            android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView1"
+            android:orientation="horizontal">  
+                     
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户账号："
+            android:textColor="@color/black" />
+            <TextView
+            android:id="@+id/linearlayoutuserinfot1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:textColor="@color/black" />           
+        </LinearLayout>
+        <Space
+            android:id="@+id/userinfospace2"
+            android:layout_below="@+id/linearlayoutuserinfo1"
+            android:layout_width="30dp"
+	        android:layout_height="10dp"
+            />
+        <LinearLayout
+            android:id="@+id/linearlayoutuserinfo2"
+            android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/userinfospace2"
+            android:orientation="horizontal">           
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="云端同步笔记数量："
+            android:textColor="@color/black" />
+            <TextView
+            android:id="@+id/linearlayoutuserinfot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black" />           
+        </LinearLayout>
+        <Space
+            android:id="@+id/userinfospace3"
+            android:layout_below="@+id/linearlayoutuserinfo2"
+            android:layout_width="30dp"
+	        android:layout_height="10dp"
+            />
+        <LinearLayout
+            android:id="@+id/linearlayoutuserinfo3"
+            android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/userinfospace3"
+            android:orientation="horizontal">           
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户共享笔记数："
+            android:textColor="@color/black" />
+            <TextView
+            android:id="@+id/linearlayoutuserinfot3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black" />           
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/userinfobtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearlayoutuserinfo3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="46dp"
+            android:text="退出" />
+
+</RelativeLayout>

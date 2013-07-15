@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+		
+	<Resource name="jdbc/lms" auth="Container" type="javax.sql.DataSource"
+	maxActive="5" maxIdle="3" maxWait="10000" username="root"
+	password="root" driverClassName="com.mysql.jdbc.Driver"
+	url="jdbc:mysql://localhost:3306/pkmdb?characterEncoding=UTF-8" />
+				
+	<Realm className="org.apache.catalina.realm.JAASRealm"
+		appName="lms"
+		userClassNames="cn.edu.cust.util.login.UserPrincipal"
+		roleClassNames="cn.edu.cust.util.login.RolePrincipal"/>
+</Context>
